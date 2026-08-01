@@ -4,12 +4,13 @@ import readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
 
 import { Chroma } from "@langchain/community/vectorstores/chroma";
-import { OllamaEmbeddings, ChatOllama } from "@langchain/ollama";
+import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
+import { ChatGroq } from "@langchain/groq";
 
 async function main() {
-  const embeddings = new OllamaEmbeddings({
-    model: "nomic-embed-text",
-    baseUrl: process.env.OLLAMA_BASE_URL,
+  const embeddings = new GoogleGenerativeAIEmbeddings({
+    modelName: "gemini-embedding-2",
+    apiKey: process.env.GOOGLE_API_KEY,
   });
 
   const vectorStore = new Chroma(embeddings, {
@@ -18,9 +19,10 @@ async function main() {
     port: 8000,
   });
 
-  const model = new ChatOllama({
-    model: "gemma4:latest",
-    baseUrl: process.env.OLLAMA_BASE_URL,
+  const model = new ChatGroq({
+    model: "llama-3.3-70b-versatile",
+    apiKey: process.env.GROQ_API_KEY,
+    temperature: 0,
   });
 
   const rl = readline.createInterface({ input, output });

@@ -2,7 +2,7 @@ import "dotenv/config";
 
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
-import { OllamaEmbeddings } from "@langchain/ollama";
+import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
 import { Chroma } from "@langchain/community/vectorstores/chroma";
 
 async function main() {
@@ -30,9 +30,9 @@ async function main() {
 
     console.log("Chunks:", splitDocs.length);
 
-    const embeddings = new OllamaEmbeddings({
-      model: "nomic-embed-text",
-      baseUrl: process.env.OLLAMA_BASE_URL,
+    const embeddings = new GoogleGenerativeAIEmbeddings({
+      model: "gemini-embedding-2",
+      apiKey: process.env.GOOGLE_API_KEY,
     });
 
     console.log("Creating vector store...");
