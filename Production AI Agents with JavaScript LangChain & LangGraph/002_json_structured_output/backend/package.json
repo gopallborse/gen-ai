@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:server": "tsx src/server.ts"
+    "dev:server": "node ./node_modules/tsx/dist/cli.mjs src/server.ts"
   },
   "keywords": [],
   "author": "",
